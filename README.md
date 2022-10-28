@@ -49,7 +49,6 @@ Implementation of a reactive walking controller for quadruped robots. Architectu
 * Get inside and cmake: `cd build` then `cmake .. -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=~/install -DPYTHON_EXECUTABLE=$(which python3.6) -DPYTHON_STANDARD_LAYOUT=ON -DCMAKE_CXX_FLAGS="-Wno-error"`
 
 * Compile Python bindings: `make`
-* Temporary fix to [Errno 2] error during `make` : Replacing `/compile.py` with absolute path in `build.make` (not recommended tho)
 
 * Copy them to the script folder so that the scripts can access the compiled code: `cp python/quadruped_reactive_walking/libquadruped_reactive_walking.so ../scripts/`
 
@@ -78,3 +77,13 @@ Implementation of a reactive walking controller for quadruped robots. Architectu
 * For the MPC QP problem you can tune weights of the Q and P matrices in the `create_weight_matrices` function of `src/MPC.cpp`.
 
 * Remember that if you modify C++ code you need to recompile the library.
+
+# BiQu Notes
+
+* Temporary fix to [Errno 2] error during `make` : Replacing `/compile.py` with absolute path in `build.make` (not recommended tho)
+
+* Fixing `ModuleNotFoundError`: make sure the environment variables are configured. We forgot to put in the right python version in the path.
+
+* `time.clock` Error: `time.clock` is deprecated in py3.8, change all occurrences to `time.perf_counter`
+
+* `libmasterboard...something something` Error: Switch `Simulation` tag in `main_solo12_control.py` to `True` for simulation. We are not using the master      board for biqu.
